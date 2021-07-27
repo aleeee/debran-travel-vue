@@ -1,26 +1,43 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+
+  <Navigation/>
+  <div class="container">
+
+  <router-view v-slot="{Component}" >
+    <transition name="moveUp" >
+      <component :is="Component" :key="$route.path"></component>
+    </transition>
+  </router-view>
+ 
+  </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
+import Navigation from "@/components/Navigation"
 export default {
-  name: "App",
-  components: {
-    HelloWorld,
+  components: {Navigation},
+  setup() {
+    
+    
   },
-};
+}
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style class="css">
+  .moveUp-enter-active{
+    animation: fadeIn 1s ease-in;
+  }
+  @keyframes fadeIn {
+    0% {opacity: 0;}
+    50% {opacity: 0.5;}
+    100% {opacity: 1;}
+  }
+  .moveUp-leave-active{
+    animation: moveUp 0.3s ease-in;
+  }
+  @keyframes moveUp {
+    0% {transform: translateY(0);}
+    100% {transform: translateY(-400px); }
+  }
+  
 </style>

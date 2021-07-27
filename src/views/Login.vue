@@ -1,0 +1,37 @@
+<template>
+    <div class="login">
+        <form class="form" @submit.prevent="login">
+            <h1>Login</h1>
+            <label for="username">Username</label>
+            <input v-model="username" type="text" name="username" class="input">
+            <label for="password">Password</label>
+            <input v-model="password" type="password" name="password" class="input">
+
+            <button class="btn">Login</button>
+        </form>
+    </div>
+</template>
+
+<script>
+import {useRouter,useRoute} from 'vue-router'
+import {ref} from 'vue'
+export default ({
+    setup() {
+        const username = ref('')
+        const password = ref('')
+        const router = useRouter();
+        const route = useRoute();
+
+        const redirectPath = route.query.redirect || 'proteced'
+        function login(){
+            window.user = username.value
+            router.push(redirectPath)
+        }
+        return{
+            username,
+            password,
+            login
+        }
+    },
+})
+</script>
